@@ -1241,6 +1241,17 @@ html {
         border-radius: 8px;
     }
 
+    /* Hero section - Ensure background image resizes properly on mobile */
+    .hero {
+        background-size: cover;
+        background-position: center center;
+        background-attachment: scroll; /* Change from fixed to scroll for better mobile performance */
+    }
+
+    .hero-overlay {
+        background: rgba(1, 4, 9, 0.75); /* Slightly darker overlay on mobile for better text readability */
+    }
+
     .hero-title {
         font-size: 3rem;
         letter-spacing: 3px;
