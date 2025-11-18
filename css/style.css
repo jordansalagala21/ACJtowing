@@ -254,7 +254,7 @@ html {
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(135deg, rgba(13, 17, 23, 0.95) 0%, rgba(1, 4, 9, 0.88) 50%, rgba(13, 17, 23, 0.95) 100%);
+    background: linear-gradient(135deg, rgba(13, 17, 23, 0.7) 0%, rgba(1, 4, 9, 0.5) 50%, rgba(13, 17, 23, 0.7) 100%);
     z-index: 1;
 }
 
@@ -264,7 +264,7 @@ html {
     left: 0;
     width: 100%;
     height: 100%;
-    background: radial-gradient(ellipse at 50% 50%, transparent 0%, rgba(1, 4, 9, 0.6) 100%);
+    background: radial-gradient(ellipse at 50% 50%, transparent 0%, rgba(1, 4, 9, 0.3) 100%);
     z-index: 2;
 }
 
@@ -1285,6 +1285,21 @@ html {
         border-radius: 8px;
     }
 
+    /* Hero section - Better image visibility and responsiveness on mobile */
+    .hero {
+        background-size: cover;
+        background-position: center center;
+        background-attachment: scroll; /* Better performance on mobile */
+    }
+
+    .hero::before {
+        background: linear-gradient(135deg, rgba(13, 17, 23, 0.5) 0%, rgba(1, 4, 9, 0.3) 50%, rgba(13, 17, 23, 0.5) 100%);
+    }
+
+    .hero-overlay {
+        background: radial-gradient(ellipse at 50% 50%, transparent 0%, rgba(1, 4, 9, 0.2) 100%);
+    }
+
     .hero-title {
         font-size: 3rem;
         letter-spacing: 3px;
@@ -1367,8 +1382,19 @@ html {
         display: block;
     }
 
+    /* Disable all hover effects on mobile */
     .gallery-item:hover {
-        transform: none;
+        transform: none !important;
+        border-color: rgba(255, 76, 41, 0.15) !important;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5) !important;
+    }
+
+    .gallery-item:hover img {
+        transform: none !important;
+    }
+
+    .gallery-item:hover .gallery-overlay {
+        opacity: 1 !important;
     }
 
     .gallery-dots {
