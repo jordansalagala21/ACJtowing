@@ -1214,6 +1214,30 @@ html {
     font-size: 0.9rem;
 }
 
+/* Mobile Carousel Dots */
+.carousel-dots {
+    display: none;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 2rem;
+}
+
+.carousel-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: rgba(255, 76, 41, 0.3);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+}
+
+.carousel-dot.active {
+    background: var(--primary-color);
+    transform: scale(1.2);
+    border-color: rgba(255, 76, 41, 0.5);
+}
+
 /* Responsive Design */
 @media (max-width: 1024px) {
     .hero-title {
@@ -1355,6 +1379,73 @@ html {
 
     .contact-info h2 {
         font-size: 3rem;
+    }
+
+    /* Mobile carousels - Show dots and disable hover effects */
+    .carousel-dots {
+        display: flex;
+    }
+
+    .services-grid,
+    .testimonials-grid,
+    .features-grid {
+        position: relative;
+    }
+
+    /* Disable all hover effects on mobile for service cards */
+    .service-card {
+        cursor: default !important;
+        pointer-events: none;
+    }
+
+    .service-card:hover,
+    .service-card:active,
+    .service-card:focus {
+        transform: none !important;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3) !important;
+        border-color: rgba(255, 76, 41, 0.2) !important;
+    }
+
+    .service-card:hover .service-icon,
+    .service-card:active .service-icon,
+    .service-card:focus .service-icon {
+        transform: none !important;
+        background: linear-gradient(135deg, rgba(255, 76, 41, 0.15) 0%, rgba(255, 165, 0, 0.15) 100%) !important;
+    }
+
+    /* Disable all hover effects on mobile for testimonial cards */
+    .testimonial-card {
+        cursor: default !important;
+        pointer-events: none;
+    }
+
+    .testimonial-card:hover,
+    .testimonial-card:active,
+    .testimonial-card:focus {
+        transform: none !important;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3) !important;
+        border-color: rgba(255, 76, 41, 0.2) !important;
+    }
+
+    /* Disable all hover effects on mobile for feature items */
+    .feature-item {
+        cursor: default !important;
+        pointer-events: none;
+    }
+
+    .feature-item:hover,
+    .feature-item:active,
+    .feature-item:focus {
+        transform: none !important;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3) !important;
+        border-color: rgba(255, 76, 41, 0.2) !important;
+    }
+
+    .feature-item:hover .feature-icon,
+    .feature-item:active .feature-icon,
+    .feature-item:focus .feature-icon {
+        transform: none !important;
+        background: linear-gradient(135deg, rgba(255, 76, 41, 0.15) 0%, rgba(255, 165, 0, 0.15) 100%) !important;
     }
 
     /* Gallery slideshow on mobile */
