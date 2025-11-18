@@ -150,7 +150,7 @@ document.querySelectorAll('.contact-item').forEach(item => {
 
 // Mobile Carousel/Slider functionality
 class MobileCarousel {
-    constructor(container, itemsSelector) {
+    constructor(container, itemsSelector, dotsSelector = null) {
         this.container = container;
         this.items = container.querySelectorAll(itemsSelector);
         this.currentIndex = 0;
@@ -158,6 +158,7 @@ class MobileCarousel {
         this.currentX = 0;
         this.isDragging = false;
         this.isMobile = window.innerWidth <= 768;
+        this.customDotsSelector = dotsSelector;
         
         if (this.isMobile && this.items.length > 0) {
             this.init();
@@ -198,24 +199,38 @@ class MobileCarousel {
     }
     
     createDots() {
-        // Remove existing dots if any
-        const existingDots = this.container.parentElement.querySelector('.carousel-dots');
-        if (existingDots) {
-            existingDots.remove();
+        // If custom dots selector is provided, use that container
+        if (this.customDotsSelector) {
+            this.dotsContainer = this.container.parentElement.querySelector(this.customDotsSelector);
+            if (!this.dotsContainer) {
+                console.warn(`Dots container not found: ${this.customDotsSelector}`);
+                return;
+            }
+            // Clear existing dots
+            this.dotsContainer.innerHTML = '';
+        } else {
+            // Remove existing dots if any
+            const existingDots = this.container.parentElement.querySelector('.carousel-dots');
+            if (existingDots) {
+                existingDots.remove();
+            }
+            
+            this.dotsContainer = document.createElement('div');
+            this.dotsContainer.className = 'carousel-dots';
         }
-        
-        this.dotsContainer = document.createElement('div');
-        this.dotsContainer.className = 'carousel-dots';
         
         this.items.forEach((_, index) => {
             const dot = document.createElement('span');
-            dot.className = 'carousel-dot';
+            dot.className = this.customDotsSelector ? 'dot' : 'carousel-dot';
             if (index === 0) dot.classList.add('active');
             dot.addEventListener('click', () => this.goToSlide(index));
             this.dotsContainer.appendChild(dot);
         });
         
-        this.container.parentElement.appendChild(this.dotsContainer);
+        // Only append if it's a newly created container
+        if (!this.customDotsSelector) {
+            this.container.parentElement.appendChild(this.dotsContainer);
+        }
     }
     
     addEventListeners() {
@@ -319,17 +334,20 @@ class MobileCarousel {
         // Hide all items
         this.items.forEach((item, index) => {
             if (index === this.currentIndex) {
+                item.classList.add('active');
                 item.style.display = 'block';
                 item.style.opacity = '1';
                 item.style.transform = 'translateY(0)';
             } else {
+                item.classList.remove('active');
                 item.style.display = 'none';
             }
         });
         
         // Update dots
         if (this.dotsContainer) {
-            const dots = this.dotsContainer.querySelectorAll('.carousel-dot');
+            const dotClass = this.customDotsSelector ? '.dot' : '.carousel-dot';
+            const dots = this.dotsContainer.querySelectorAll(dotClass);
             dots.forEach((dot, index) => {
                 if (index === this.currentIndex) {
                     dot.classList.add('active');
@@ -359,5 +377,11 @@ if (window.innerWidth <= 768) {
     const featuresGrid = document.querySelector('.features-grid');
     if (featuresGrid) {
         new MobileCarousel(featuresGrid, '.feature-item');
+    }
+    
+    // Gallery carousel
+    const galleryGrid = document.querySelector('.gallery-grid');
+    if (galleryGrid) {
+        new MobileCarousel(galleryGrid, '.gallery-item', '.gallery-dots');
     }
 }
