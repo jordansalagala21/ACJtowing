@@ -1371,6 +1371,8 @@ html {
         width: 100%;
         min-height: 400px;
         flex-shrink: 0;
+        cursor: default !important;
+        pointer-events: none; /* Disable all click/touch interactions */
     }
 
     /* Show first item by default until carousel initializes */
@@ -1382,23 +1384,38 @@ html {
         display: block;
     }
 
-    /* Disable all hover effects on mobile */
-    .gallery-item:hover {
+    /* Completely disable all hover, active, and focus effects on mobile */
+    .gallery-item:hover,
+    .gallery-item:active,
+    .gallery-item:focus {
         transform: none !important;
         border-color: rgba(255, 76, 41, 0.15) !important;
         box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5) !important;
     }
 
-    .gallery-item:hover img {
+    .gallery-item:hover img,
+    .gallery-item:active img,
+    .gallery-item:focus img {
         transform: none !important;
     }
 
-    .gallery-item:hover .gallery-overlay {
+    .gallery-item .gallery-overlay {
+        pointer-events: none;
+    }
+
+    .gallery-item:hover .gallery-overlay,
+    .gallery-item:active .gallery-overlay,
+    .gallery-item:focus .gallery-overlay {
         opacity: 1 !important;
     }
 
     .gallery-dots {
         display: flex;
+        pointer-events: auto; /* Re-enable pointer events for dots */
+    }
+
+    .gallery-dots .dot {
+        pointer-events: auto; /* Re-enable pointer events for individual dots */
     }
 
     .gallery-overlay {
